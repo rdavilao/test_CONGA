@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator:Bot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:generator="http://generator" name="Pizza Store1">
+  <intents name="StartOrder">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="I want to order a pizza"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:ParameterReferenceToken" parameter="//@intents.0/@parameters.0" textReference="Big"/>
+        <tokens xsi:type="generator:Literal" text="pizza"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="One"/>
+        <tokens xsi:type="generator:ParameterReferenceToken" parameter="//@intents.0/@parameters.0" textReference="small"/>
+        <tokens xsi:type="generator:Literal" text="pizza, please"/>
+      </inputs>
+    </inputs>
+    <parameters name="size" entity="//@entities.0" required="true">
+      <prompts>
+        <prompts>What size of pizza do you want?</prompts>
+      </prompts>
+    </parameters>
+    <parameters name="address" required="true">
+      <prompts>
+        <prompts>What is your address?</prompts>
+      </prompts>
+    </parameters>
+  </intents>
+  <intents name="Toppings">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="extra"/>
+        <tokens xsi:type="generator:ParameterReferenceToken" parameter="//@intents.1/@parameters.0" textReference="cheese"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="with"/>
+        <tokens xsi:type="generator:ParameterReferenceToken" parameter="//@intents.1/@parameters.0" textReference="ham"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:ParameterReferenceToken" parameter="//@intents.1/@parameters.0" textReference="bacon"/>
+      </inputs>
+    </inputs>
+    <parameters name="toppings" entity="//@entities.1" required="true">
+      <prompts>
+        <prompts>What topping do you want?</prompts>
+      </prompts>
+    </parameters>
+  </intents>
+  <intents name="EndOrder">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="That’s all"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="Nothing else"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="No more toppings, thank you"/>
+      </inputs>
+    </inputs>
+  </intents>
+  <intents name="ToppingsInfo">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="What toppings do you have?"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="Which are the toppings?"/>
+      </inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="What toppings can I choose?"/>
+      </inputs>
+    </inputs>
+  </intents>
+  <entities name="PizzaSize">
+    <inputs>
+      <inputs xsi:type="generator:SimpleInput" name="small">
+        <values>tiny</values>
+        <values>little</values>
+      </inputs>
+      <inputs xsi:type="generator:SimpleInput" name="medium">
+        <values>regular</values>
+        <values>intermediate</values>
+      </inputs>
+      <inputs xsi:type="generator:SimpleInput" name="big">
+        <values>huge</values>
+        <values>large</values>
+      </inputs>
+    </inputs>
+  </entities>
+  <entities name="Ingredients">
+    <inputs>
+      <inputs xsi:type="generator:SimpleInput" name="cheese"/>
+      <inputs xsi:type="generator:SimpleInput" name="ham"/>
+      <inputs xsi:type="generator:SimpleInput" name="pepperoni"/>
+      <inputs xsi:type="generator:SimpleInput" name="bacon"/>
+      <inputs xsi:type="generator:SimpleInput" name="mushrooms"/>
+      <inputs xsi:type="generator:SimpleInput" name="pepper"/>
+      <inputs xsi:type="generator:SimpleInput" name="olives"/>
+      <inputs xsi:type="generator:SimpleInput" name="corn"/>
+      <inputs xsi:type="generator:SimpleInput" name="chicken"/>
+    </inputs>
+  </entities>
+  <actions xsi:type="generator:ButtonAction" name="askingForToppings">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="What toppings do you want?"/>
+      </inputs>
+      <buttons value="cheese"/>
+      <buttons value="ham"/>
+      <buttons value="pepperoni"/>
+      <buttons value="bacon"/>
+      <buttons value="mushrooms"/>
+      <buttons value="pepper"/>
+      <buttons value="olives"/>
+      <buttons value="corn"/>
+      <buttons value="chicken"/>
+      <buttons value="That’s all"/>
+    </inputs>
+  </actions>
+  <actions xsi:type="generator:HTTPRequest" name="orderPizza" URL="https://mypizzaStore.com" method="POST">
+    <data key="size">
+      <value xsi:type="generator:ParameterToken" parameter="//@intents.0/@parameters.0"/>
+    </data>
+    <data key="address">
+      <value xsi:type="generator:ParameterToken" parameter="//@intents.0/@parameters.1"/>
+    </data>
+  </actions>
+  <actions xsi:type="generator:HTTPRequest" name="noteTopping" URL="https://mypizzaStore.com" method="POST">
+    <data key="address">
+      <value xsi:type="generator:ParameterToken" parameter="//@intents.0/@parameters.1"/>
+    </data>
+    <data key="toppings">
+      <value xsi:type="generator:ParameterToken" parameter="//@intents.1/@parameters.0"/>
+    </data>
+  </actions>
+  <actions xsi:type="generator:Text" name="info">
+    <inputs>
+      <inputs>
+        <tokens xsi:type="generator:Literal" text="We have cheese, ham, pepperoni, bacon, mushrooms, pepper, olives, corn, onion and chicken"/>
+      </inputs>
+    </inputs>
+  </actions>
+  <flows intent="//@intents.3">
+    <target actions="//@actions.3"/>
+  </flows>
+  <flows intent="//@intents.0">
+    <target actions="//@actions.0" name="ask">
+      <outcoming intent="//@intents.1">
+        <backTo previous="//@actions.2" backTo="//@flows.1/@target"/>
+      </outcoming>
+      <outcoming intent="//@intents.2">
+        <target actions="//@actions.1"/>
+      </outcoming>
+    </target>
+  </flows>
+  <languages>ENGLISH</languages>
+</generator:Bot>

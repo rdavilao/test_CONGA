@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="ASCII"?>
+<recommenderQuestionnaire:Questionnaire
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:recommenderQuestionnaire="recommenderQuestionnaire">
+  <tools name="Dialogflow"/>
+  <tools name="Watson"/>
+  <tools name="Lex"/>
+  <tools name="Microsoft Bot Framework"/>
+  <tools name="Rasa"/>
+  <tools name="SmartLoop"/>
+  <tools name="Xenioo"/>
+  <tools name="LUIS"/>
+  <tools name="FlowXO"/>
+  <tools name="Landb.io"/>
+  <tools name="ChatterBot"/>
+  <tools name="Chatfuel"/>
+  <tools name="Botkit"/>
+  <tools name="Pandorabot"/>
+  <questions
+      name="Social Networks"
+      text="In which social network do you want to deploy the chatbot?"
+      multiresponse="true">
+    <options
+        text="Google Assistant"/>
+    <options
+        text="Facebook Messenger"/>
+    <options
+        text="Slack"/>
+    <options
+        text="Viber"/>
+    <options
+        text="Twitter"/>
+    <options
+        text="Twilio (IP)"/>
+    <options
+        text="Twilio (SMS)"/>
+    <options
+        text="Skype"/>
+    <options
+        text="Telegram"/>
+    <options
+        text="Kik"/>
+    <options
+        text="Line"/>
+    <options
+        text="Cisco Spark"/>
+    <options
+        text="Amazon Alexa"/>
+    <options
+        text="Microsoft Cortana"/>
+    <options
+        text="Whatsapp"/>
+    <options
+        text="Cisco Webex"/>
+    <options
+        text="Cisco Jabber"/>
+    <options
+        text="RocketChat"/>
+    <options
+        text="Mattermost"/>
+    <options
+        text="Google Hangouts"/>
+    <options
+        text="Integration with web pages"/>
+    <options
+        text="Own social network"/>
+  </questions>
+  <questions
+      name="Hosted Deployment"
+      text="Do you want to deploy the chatbot on your own host or on the tool host?">
+    <options
+        text="Own host"/>
+    <options
+        text="Tool host"/>
+  </questions>
+  <questions
+      name="Version Control"
+      text="Do you require version control in the tool?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      name="Support for Analytics"
+      text="Do you require support for analytics in the tool?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      name="User message persistence"
+      text="Do you require user message persistence in the tool?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      name="Open Source"
+      text="Do you need the tool to be open source?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      name="Pricing model"
+      text="Pricing model"
+      multiresponse="true">
+    <options
+        text="Free"/>
+    <options
+        text="Pay as you go"/>
+    <options
+        text="Quota"/>
+    <options
+        text="Pay for avanced features"/>
+  </questions>
+  <questions
+      name="Developer expertise"
+      text="What is the level of developer expertise of the chatbot developers?">
+    <options
+        text="High"/>
+    <options
+        text="Low"/>
+  </questions>
+  <questions
+      name="Speech recognition"
+      text="Do you want your chatbot to have speech recognition?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      name="Sentiment analysis"
+      text="Do you want your chatbot to have sentiment analysis?">
+    <options
+        text="Yes"/>
+    <options
+        text="No"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.Entities"
+      text="Does the bot use new entities, predefined or none?"
+      multiresponse="true">
+    <options
+        text="pre-defined"/>
+    <options
+        text="none"/>
+    <options
+        text="defined"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.ExternalServiceCalls"
+      text="Does the chatbot have an external service call, multiple or none?">
+    <options
+        text="one"/>
+    <options
+        text="multiple"/>
+    <options
+        text="none"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.Language"
+      text="Chatbot languages"
+      multiresponse="true">
+    <options
+        text="Italian"/>
+    <options
+        text="German"/>
+    <options
+        text="Swedish"/>
+    <options
+        text="Turkish"/>
+    <options
+        text="French"/>
+    <options
+        text="Arabic"/>
+    <options
+        text="Portuguese"/>
+    <options
+        text="Indonesian"/>
+    <options
+        text="Spanish"/>
+    <options
+        text="Hindi"/>
+    <options
+        text="Thai"/>
+    <options
+        text="Ukranian"/>
+    <options
+        text="Norwegian"/>
+    <options
+        text="Finish"/>
+    <options
+        text="Polish"/>
+    <options
+        text="Bangla"/>
+    <options
+        text="Korean"/>
+    <options
+        text="Bulgarian"/>
+    <options
+        text="Japanese"/>
+    <options
+        text="English"/>
+    <options
+        text="Rusian"/>
+    <options
+        text="Danish"/>
+    <options
+        text="Chinese"/>
+    <options
+        text="Czech"/>
+    <options
+        text="Dutch"/>
+    <options
+        text="Greek"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.Multilanguage"
+      text="Is the bot multilanguage?">
+    <options
+        text="no"/>
+    <options
+        text="yes"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.ParameterExtaction"
+      text="Does the bot need text processing to obtain phrase parameters?">
+    <options
+        text="no"/>
+    <options
+        text="yes"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.ParameterStorage"
+      text="Does the bot need persistent parameter storage, is volatile enough or none?">
+    <options
+        text="volatile"/>
+    <options
+        text="none"/>
+    <options
+        text="persistent"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.NLPatternMachine"
+      text="Does the chatbot need pattern matching, natural language processing or both?"
+      multiresponse="true">
+    <options
+        text="Pattern Matching"/>
+    <options
+        text="Natural Language Processing (NLP)"/>
+  </questions>
+  <questions
+      xsi:type="recommenderQuestionnaire:Evaluation"
+      name="recommenderQuestionnaire.evaluations.Loops"
+      text="Has the bot conversation loops?">
+    <options
+        text="no"/>
+    <options
+        text="yes"/>
+  </questions>
+</recommenderQuestionnaire:Questionnaire>

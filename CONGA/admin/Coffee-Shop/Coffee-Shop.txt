@@ -1,0 +1,63 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+state c <<choice>>
+[*]-->c
+c-->bot1 : user1-orderlast
+bot1 : ordersnack - yesTxtResp1
+bot1 : orderlastTxtResp2
+bot1-->bot2 : user2-orderlastdifferent_card
+bot2 : orderlastdifferent_cardTxtResp1
+bot2-->[*]
+bot1-->bot3 : user3-orderlastsame_card
+bot3 : orderlastsame_cardTxtResp1
+bot3-->[*]
+c-->bot4 : user4-ordergift_card
+bot4 : ordersnack - yesTxtResp1
+bot4 : ordergift_cardTxtResp2
+bot4-->bot5 : user5-ordergift_cardsame_card
+bot5 : ordergift_cardsame_cardTxtResp1
+bot5-->[*]
+bot4-->bot5 : user6-ordergift_carddifferent_card
+c-->bot7 : user7-Default Welcome Intent
+bot7 : ordersnack - yesTxtResp1
+bot7 : Default Welcome IntentTxtResp2
+bot7-->[*]
+c-->bot8 : user8-orderdrink
+bot8 : ordersnack - yesTxtResp1
+bot8 : orderdrinkTxtResp2
+bot8-->bot9 : user9-orderdrink - no
+bot9 : orderdrink - noTxtResp1
+bot9-->[*]
+bot8-->bot10 : user10-ordersnack - yes
+bot10 : ordersnack - yesTxtResp1
+bot10 : ordergift_cardTxtResp2
+bot10-->bot11 : user11-orderdrinkdifferent_card
+bot11 : orderdrinkdifferent_cardTxtResp1
+bot11-->[*]
+bot10-->bot11 : user12-orderlastsame_card
+c-->bot13 : user13-ordersnack
+bot13 : ordersnack - yesTxtResp1
+bot13 : ordersnackTxtResp2
+bot13-->bot14 : user14-ordersnack - yes
+bot14 : ordersnack - yesTxtResp1
+bot14 : ordersnack - yesTxtResp2
+bot14-->bot15 : user15-ordersnackdifferent_card
+bot15 : ordersnackdifferent_cardTxtResp1
+bot15-->[*]
+bot14-->bot16 : user16-ordersnacksame_card
+bot16 : ordersnacksame_cardTxtResp1
+bot16-->[*]
+bot13-->bot17 : user17-orderdrink - no
+bot17 : ordersnack - noTxtResp1
+bot17-->[*]
+c-->bot18 : user18-Default Fallback Intent
+bot18 : ordersnack - yesTxtResp1
+bot18 : Default Fallback IntentTxtResp2
+bot18-->[*]
+
+@enduml

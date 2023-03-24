@@ -1,0 +1,92 @@
+Chatbot Vet language: en
+	intents:
+	
+		defaultFallBack Fallback:
+		
+		Welcome:
+			inputs{
+				hey,
+				hello,
+				"hi",
+				good morning,
+				good evening,
+				hey there
+			}
+		Hours:
+			inputs{
+				When are you open'?',
+				Are you open today'?',
+				How late are you open on weekends'?',
+				"What time do you open tomorrow morning?",
+				When do you close'?'
+			}
+		"Make Appointment":
+			inputs{
+				I need an appointment for (Lucky)[petName],
+				I need an appointment for my (dog)[pet](Chester)[petName] at ("3 PM")["time"] on (Saturday)["date"],
+				My pet ("Jordan")[petName] is sick,
+				My ("cat")[pet]("Alberto")[petName] is sick,
+				I need to make an appointment at ("3 PM")["time"]("today")["date"],
+				Can I set up an appointment for ("noon")["time"] on ("Friday")["date"]"?",
+				Can I schedule service for ("4 PM")["time"]("tomorrow")["date"]"?",
+				Can I schedule service ("tomorrow")["date"]"?",
+				I need to make an appointment on ("Monday")["date"],
+				I need an appointment for my pet,
+				My pet is sick,
+				I need an appointment for my ("dog")[pet],
+				My ("cat")[pet] is sick,
+				I need an appointment for my ("dog")[pet] at ("3 PM")["time"] on ("Saturday")["date"],
+				I want schredule an appointment for my ("bird")[pet]("Arquimedes")[petName] on ("Monday")["date"] at ("9:00")["time"]
+			  }  
+			parameters:
+				"date": entity date, required, prompts ["Okay, what day do you want an appointment?"];
+				"time": entity time, required, prompts ["What time?"];
+				petName: entity text, required, prompts ["What is the pet name?"];
+				pet: entity pet, required, prompts ["What kind is your pet?"];
+		
+	entities:
+		Entity pet:
+			inputs in en{
+				s: dog synonyms cocker, "cocker spaniel", puppy, "germal shepherd"
+				s: cat synonyms kitty, siamese
+				s: fish
+			}
+			
+	actions: 
+		text response Greet:
+			inputs in en{
+				"Welcome. I can tell you the center hours, or I can make an appointment. What can I do for you?",
+				"hi"
+			}
+		text response HoursOpen:
+			{
+				"We're open from 9 AM to 6 PM every day."
+			}
+		HTTP request post MakeAppointmentRequest:
+			URL: "https://dimo1.ii.uam.es:8443/VeterinarioApi/Rasa/";
+			data:
+				petName : ["Make Appointment.petName"],
+				"time"	: ["Make Appointment.time"],
+				pet : ["Make Appointment.pet"],
+				"date"	: ["Make Appointment.date"];
+			dataType: JSON;
+		text response AppointmentResponse:
+			{
+				"I am going to schedule an appointment:\n"
+				"\t- date:" ["Make Appointment.date"]"\n"
+				"\t- time:" ["Make Appointment.time"]"\n"
+				"\t- pet:"["Make Appointment.pet"] "\n"
+				"\t- petName:"["Make Appointment.petName"]"\n"
+			}
+		text response fallBack:
+			{
+				"Sorry, I don't undestand you"
+			}
+		HttpResponse HTTPResponse:
+			HttpRequest: MakeAppointmentRequest;
+			inputs {request.text}
+	flows:
+		- user Welcome => chatbot Greet;
+		- user Hours => chatbot HoursOpen;
+		- user "Make Appointment" => chatbot MakeAppointmentRequest, HTTPResponse;
+		- user defaultFallBack => chatbot fallBack;

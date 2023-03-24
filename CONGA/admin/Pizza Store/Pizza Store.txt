@@ -1,0 +1,23 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+state c <<choice>>
+[*]-->c
+c-->info : ToppingsInfo
+info : info
+info-->[*]
+c-->ask : StartOrder
+ask : askingForToppings
+ask-->ask : Toppings
+note on link
+noteTopping
+end note
+ask-->orderPizza : EndOrder
+orderPizza : orderPizza
+orderPizza-->[*]
+
+@enduml

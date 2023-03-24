@@ -1,0 +1,87 @@
+Chatbot "Pizza Store1" language: en
+
+intents:
+
+	StartOrder:{
+			"I want to order a pizza",
+			( "Big")[size]  "pizza",
+			"One" ( "small")[size]  "pizza, please"
+		}
+		parameters:
+			size: entity PizzaSize, required, prompts [ "What size of pizza do you want?"];
+			address: entity text, required, prompts [ "What is your address?"];
+
+	Toppings:{
+			"extra" ( "cheese")[toppings],
+			"with" ( "ham")[toppings],
+			( "bacon")[toppings]
+		}
+		parameters:
+			toppings: entity Ingredients, required, prompts [ "What topping do you want?"];
+
+	EndOrder:{
+			"That’s all",
+			"Nothing else",
+			"No more toppings, thank you"
+	}
+
+	ToppingsInfo: {
+			"What toppings do you have?",
+			"Which are the toppings?",
+			"What toppings can I choose?"
+	}
+
+
+entities:
+	Simple entity PizzaSize:
+		{
+			small synonyms tiny, little
+			medium synonyms regular, intermediate
+			big synonyms huge, large
+	}
+	Simple entity Ingredients:
+		{
+			cheese
+			ham
+			pepperoni
+			bacon
+			mushrooms
+			pepper
+			olives
+			corn
+			chicken
+	}
+
+actions:
+	Button response askingForToppings: {
+        text:  - "What toppings do you want?"
+        buttons:
+            - value:  "cheese"      - value:  "ham"
+            - value:  "pepperoni"   - value:  "bacon"
+            - value:  "mushrooms"   - value:  "pepper"
+            - value:  "olives"      - value:  "corn"
+            - value:  "chicken"     - value:  "That’s all"
+ }
+	Request post orderPizza:
+		URL:  "https://mypizzaStore.com";
+		data:
+			"size" : [ "StartOrder.size"],
+			"address" : [ "StartOrder.address"];
+		dataType: JSON;
+	Request post noteTopping:
+		URL:  "https://mypizzaStore.com";
+		data:
+			"address" : [ "StartOrder.address"],
+			"toppings": [ "Toppings.toppings"];
+		dataType: JSON;
+	Text response info:
+		{
+			"We have cheese, ham, pepperoni, bacon, mushrooms, pepper, olives, corn, onion and chicken"
+	}
+
+flows:
+	- user ToppingsInfo => chatbot info;
+	- user StartOrder => ask: chatbot askingForToppings{
+		=> user Toppings => chatbot noteTopping back to ask;
+		=> user EndOrder => chatbot orderPizza;
+	};

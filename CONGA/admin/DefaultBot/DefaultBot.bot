@@ -1,0 +1,125 @@
+Chatbot DefaultBot language: en
+
+intents:
+greet:
+	inputs{
+		"hi",
+		"hello",
+		"hey",
+		"Good Morning",
+		"good evening",
+		"hey there",
+		"just going to say hi",
+		"greetings",
+		"long time no see"
+}
+
+goodbye:
+    inputs{
+        "bye",
+        "goodbye",
+        "see you around",
+        "see you later"
+}
+
+afirm: 
+    inputs{
+        "yes",
+        "indeed",
+        "of course",
+        "that sounds good",
+        "correct"
+}
+
+deny:
+    inputs{
+        "no",
+        "never",
+        "I don't think so",
+        "don't like that",
+        "no way",
+        "no really"
+}
+
+mood_great:
+    inputs{
+        "perfect", 
+        "very good",
+        "great",       
+        "amazing",
+        "wonderful",
+        "I am feeling very good",
+        "I am great",
+        "I'm good"
+}
+
+mood_unhappy:
+    inputs{
+        "sad",
+        "very sad",
+        "unhappy",
+        "bad",
+        "very bad",
+        "awful",
+        "terrible",
+        "not very good",
+        "extremely sad",
+        "so sad"
+}
+
+bot_challenge:
+    inputs{
+        "are you a bot?",
+        "are you a human?",
+        "am I talking to a bot?",
+        "am I talking to a human"
+}
+
+fallback Fallback
+
+actions:
+	text response greet_action:
+		inputs{
+			"Hi! How are you doing?",
+			"Hello! How can I help you?",
+			"Good day! What can I do for you today?",
+			"Greetings! How can I assist?"
+	}
+	text response fallback_action:
+		inputs{
+			"I didn't get that. Can you say it again?",
+			"I didn't get that. Can you repeat?"
+	}
+	text response bot_challenge_action:
+	inputs{
+	        "I am a bot, powered by Rasa."
+	}
+	text response goodbye_action:
+	inputs{
+	        "Bye sir"
+	}
+	text response mood_great_action:
+	inputs{
+	        "Great, carry on!"
+	}
+	text response did_that_help:
+	inputs{
+	        "Did that help you?"
+	}
+	text response cheer_up:
+	inputs{
+	        "Live is so bad, that its worh to try it. \nDid that help you?"
+	}
+
+flows:
+	- user1 : user greet => bot1 : chatbot greet_action {
+	=> user2: user mood_great => bot2: chatbot mood_great_action;
+	=> user3: user mood_unhappy => bot3: chatbot cheer_up {
+	=> user4: user afirm => bot4: chatbot mood_great_action;
+	=> user5: user deny => bot5: chatbot goodbye_action;
+	};
+	};
+	- user fallback => chatbot fallback_action;
+	- user goodbye => chatbot goodbye_action;
+	- user bot_challenge => chatbot bot_challenge_action;
+
