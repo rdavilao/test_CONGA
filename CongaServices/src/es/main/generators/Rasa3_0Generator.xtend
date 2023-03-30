@@ -34,7 +34,7 @@ import java.io.File
 import generator.ButtonAction
 import generator.Empty
 
-class Rasa2_0Generator extends BotGenerator {
+class Rasa3_0Generator extends BotGenerator {
 
 	new(String path, String fileName, String botName) {
 		super(path + File.separator + fileName, botName)
@@ -64,7 +64,7 @@ class Rasa2_0Generator extends BotGenerator {
 			i++
 		}
 
-		var f = generateFile('requirements.txt', "python==3.7.0\nrasa==2.0.0\ngreenlet==0.4.16")
+		var f = generateFile('requirements.txt', "python==3.7.0\nrasa==3.0.0")
 		saveFileIntoZip(f, "requirements.txt");
 
 		for (Language lan : bot.languages) {
@@ -160,7 +160,7 @@ class Rasa2_0Generator extends BotGenerator {
 	}
 
 	def String stories(List<Interaction> leafs) {
-		var ret = 'version: "2.0"\n\n'+'stories:\n\n'
+		var ret = 'version: "3.0"\n\n'+'stories:\n\n'
 		for (var i = 0; i < leafs.size; i++) {
 			var clean = new ArrayList<Intent>()
 			var leaf = leafs.get(i)
@@ -205,7 +205,7 @@ class Rasa2_0Generator extends BotGenerator {
 	'''
 	
 	def rules() '''
-		version: "2.0"
+		version: "3.0"
 	'''
 
 	def actions(List<Intent> intents, List<Entity> entities, List<Action> actions, Language lan, Bot bot) '''
@@ -423,7 +423,7 @@ class Rasa2_0Generator extends BotGenerator {
 	}
 
 	def domain(List<Intent> intents, List<Parameter> parameters, List<Action> actions, Language lan, Bot bot) '''
-		version: "2.0"
+		version: "3.0"
 		
 		«IF !intents.isEmpty»
 			intents:
@@ -571,7 +571,7 @@ class Rasa2_0Generator extends BotGenerator {
 	}
 
 	def nlu(List<Intent> intents, List<Entity> entities, Language lan, Bot bot) '''
-		version: "2.0"
+		version: "3.0"
 		
 		nlu:
 		«FOR intent : intents»
@@ -712,6 +712,10 @@ class Rasa2_0Generator extends BotGenerator {
 	'''
 
 	def config(Language lan, Action fallbackAction, boolean hasFallback, boolean hasForm) '''
+		# The config recipe.
+		# https://rasa.com/docs/rasa/model-configuration/
+		recipe: default.v1
+		
 		# Configuration for Rasa NLU.
 		# https://rasa.com/docs/rasa/nlu/components/
 		language: «lan.languageAbbreviation»
@@ -737,18 +741,19 @@ class Rasa2_0Generator extends BotGenerator {
 		  - name: TEDPolicy
 		    max_history: 5
 		    epochs: 100
-		  - name: MappingPolicy
 		  «IF hasForm»
 		  - name: FormPolicy
 		  «ENDIF»
 		  «IF hasFallback»
-		  	- name: "FallbackPolicy"
-		  	  nlu_threshold: 0.5
-		  	  core_threshold: 0.35
+		  	- name: "RulePolicy"
+		  	  core_fallback_threshold: 0.3
+		  	  enable_fallback_prediction: true
+		  	  restric_rules: true
+		  	  check_for_contradictions: true
 		  	  «IF fallbackAction === null»
-		  	  	fallback_action_name: 'action_default_fallback'
+		  	  	core_fallback_action_name: 'action_default_fallback'
 		  	  «ELSE»
-		  	  	fallback_action_name: '«fallbackAction.actionName»'
+		  	  	core_fallback_action_name: '«fallbackAction.actionName»'
 		  	  «ENDIF»
 		  «ENDIF»
 	'''

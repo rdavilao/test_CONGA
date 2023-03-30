@@ -21,18 +21,18 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.jsoup.Jsoup;
 
-public class RasaReverse extends Reverse {
+public class Rasa2_0Reverse extends Reverse {
 	private List<String> fileIgnore = new ArrayList<>();
 	private static final String[] ignore = { "README.md", "readme.md", "Readme.md", "test_stories.yml", "test_stories.md", "test",
 			"tests" };
 
-	public RasaReverse() {
+	public Rasa2_0Reverse() {
 		for (String s : ignore) {
 			fileIgnore.add(s);
 		}
 	}
 
-	public RasaReverse(List<String> fileIgnore) {
+	public Rasa2_0Reverse(List<String> fileIgnore) {
 		for (String s : ignore) {
 			fileIgnore.add(s);
 		}
@@ -73,17 +73,18 @@ public class RasaReverse extends Reverse {
 				} else {
 					File f = currentFile;
 					if (!f.getName().contains("test")) {
-						if (f.getName().endsWith(".md")) {
+						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml")) {
 							String info = readFile(f);
 							info = info.replaceAll("##intent:", "## intent:").replaceAll("##synonym:", "## synonym:")
 									.replaceAll("##regex:", "## regex:").replaceAll("##lookup:", "## lookup:");
 
-							if (info.contains("## intent:") || info.contains("## synonym:")
-									|| info.contains("## regex:") || info.contains("## lookup:")) {
+							if (info.contains("nlu:")) {
 								String fileString = info;
-								fileString = fileString.replaceAll("<!--.*-->", "");
-								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",
-										" ");
+								fileString = fileString.replaceAll("<!--.*-->", "").replaceAll("examples: \\|", "erase--")
+										.replaceAll("version: \"2.0\"", "erase--").replaceAll("nlu:", "erase--")
+										.replaceAll("- intent:","## intent:");
+								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
+										.replaceAll("\t", "");
 								System.out.println(f.getName()+" : "+fileString);
 								Node document = parser.parse(fileString);
 								HtmlRenderer renderer = HtmlRenderer.builder().build();

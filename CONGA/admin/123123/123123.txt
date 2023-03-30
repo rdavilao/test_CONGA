@@ -1,0 +1,12 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+[*]-->utter_fallback_action_text : FallbackIntent
+utter_fallback_action_text : utter_fallback_action_text
+utter_fallback_action_text-->[*]
+
+@enduml

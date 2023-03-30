@@ -21,7 +21,9 @@ import es.main.CongaResource;
 import es.main.ToolFiles;
 import es.main.generators.RasaGenerator;
 import es.main.generators.Rasa2_0Generator;
+import es.main.generators.Rasa3_0Generator;
 import es.main.parser.RasaReverse;
+import es.main.parser.Rasa2_0Reverse;
 import es.main.validator.DialogflowValidator;
 import generator.Bot;
 import validation.problems.Problem;
@@ -59,13 +61,44 @@ public class Rasa {
 	}
 	
 	@POST
-	@Path("/parser")
+	@Path("/generator3_0")
 	@Consumes (MediaType.MULTIPART_FORM_DATA)
 	@Produces (MediaType.APPLICATION_OCTET_STREAM)
-	public Response parser (@Context ServletContext context, @FormDataParam("file") File file, @FormDataParam("name") String fileName) throws Exception {
+	public Response generator3_0 (@Context ServletContext context, @FormDataParam("file") File file, @FormDataParam("name") String botName) {
+		String folderPath = context.getInitParameter("ServicePath");
+		CongaResource cs = new CongaResource(folderPath, file, botName);
+		Rasa3_0Generator generator = new Rasa3_0Generator(folderPath+File.separator+"Generator", cs.getName(), botName);
+		File f = generator.doGenerate(cs.getResource()); 
+		cs.destroy();
+		return Response.ok(f, MediaType.APPLICATION_OCTET_STREAM)
+				.header("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"").build();
+		
+	}
+	
+	@POST
+	@Path("/parser1_10")
+	@Consumes (MediaType.MULTIPART_FORM_DATA)
+	@Produces (MediaType.APPLICATION_OCTET_STREAM)
+	public Response parser1_10 (@Context ServletContext context, @FormDataParam("file") File file, @FormDataParam("name") String fileName) throws Exception {
 		String folderPath = context.getInitParameter("ServicePath");
 		ToolFiles tf = new ToolFiles(folderPath, file, fileName);
 		RasaReverse parser = new RasaReverse();
+		Bot bot = parser.getChatbot(tf.getFile()).getBot(); 
+		File f = tf.createResource(bot);
+		tf.destroy();
+		return Response.ok(f, MediaType.APPLICATION_OCTET_STREAM)
+				.header("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"").build();
+		
+	}
+	
+	@POST
+	@Path("/parser2_0")
+	@Consumes (MediaType.MULTIPART_FORM_DATA)
+	@Produces (MediaType.APPLICATION_OCTET_STREAM)
+	public Response parser2_0 (@Context ServletContext context, @FormDataParam("file") File file, @FormDataParam("name") String fileName) throws Exception {
+		String folderPath = context.getInitParameter("ServicePath");
+		ToolFiles tf = new ToolFiles(folderPath, file, fileName);
+		Rasa2_0Reverse parser = new Rasa2_0Reverse();
 		Bot bot = parser.getChatbot(tf.getFile()).getBot(); 
 		File f = tf.createResource(bot);
 		tf.destroy();
