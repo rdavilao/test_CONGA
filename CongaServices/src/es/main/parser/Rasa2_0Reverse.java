@@ -85,15 +85,21 @@ public class Rasa2_0Reverse extends Reverse {
 										.replaceAll("- intent:","## intent:");
 								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
 										.replaceAll("\t", "");
-								System.out.println(f.getName()+" : "+fileString);
+								//help System.out.println(f.getName()+" : "+fileString);
 								Node document = parser.parse(fileString);
 								HtmlRenderer renderer = HtmlRenderer.builder().build();
 								org.jsoup.nodes.Document html = Jsoup.parse(renderer.render(document));
-								System.out.println(html);
+								//help System.out.println(html);
 								rasaBot.setNlu(html);
 								// rasaBot.setNlu(readFile(f));
 								// hasNLU = true;
 							} else {
+								info = info.replaceAll("version: \"2.0\"", "erase--").replaceAll("stories:", "erase--")
+										.replaceAll("- story:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
+										.replaceAll("steps:", "erase--");
+								info = info.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
+										.replaceAll("\t", "");
+								//helpSystem.out.println(info);
 								rasaBot.setStories(info);
 								// hasStories = true;
 							}

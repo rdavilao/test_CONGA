@@ -1,0 +1,29 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+state c <<choice>>
+[*]-->c
+c-->utter_greet_action_text : greet
+utter_greet_action_text : utter_greet_action_text
+utter_greet_action_text-->utter_mood_great_action_text : mood_great
+utter_mood_great_action_text : utter_mood_great_action_text
+utter_mood_great_action_text-->[*]
+utter_greet_action_text-->utter_cheer_up_text : mood_unhappy
+utter_cheer_up_text : utter_cheer_up_text
+utter_cheer_up_text-->utter_mood_great_action_text : afirm
+utter_cheer_up_text-->utter_goodbye_action_text : deny
+utter_goodbye_action_text : utter_goodbye_action_text
+utter_goodbye_action_text-->[*]
+c-->utter_goodbye_action_text : goodbye
+c-->utter_bot_challenge_action_text : bot_challenge
+utter_bot_challenge_action_text : utter_bot_challenge_action_text
+utter_bot_challenge_action_text-->[*]
+c-->utter_fallback_action_text : FallbackIntent
+utter_fallback_action_text : utter_fallback_action_text
+utter_fallback_action_text-->[*]
+
+@enduml

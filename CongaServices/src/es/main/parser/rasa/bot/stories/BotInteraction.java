@@ -28,11 +28,12 @@ public class BotInteraction {
 		} else {
 			text = info.substring(0, index);
 		}
-
+		
 		String[] actionsNames = text.replace(" \n", "").replace("\n", "").replace("  ", " ").replace("  ", " ").replace("- ", "-")
 				.replace(" -", "-").split("-");
 		for (String act : actionsNames) {
 			if (!act.isBlank() && !act.isEmpty()) {
+				act = act.replaceAll(" ","");
 				addAction(act);
 			}
 		}
@@ -79,7 +80,6 @@ public class BotInteraction {
 			actions.addAll(bot.getActionStartWith(action+Domain.BUTTON_SUFIX));
 			actions.addAll(bot.getActionStartWith(action+Domain.EMPTY_SUFIX));
 		}
-
 		generator.BotInteraction botInteraction = GeneratorFactory.eINSTANCE.createBotInteraction();
 
 		if (actions.isEmpty()) {

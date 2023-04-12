@@ -84,15 +84,16 @@ public class RasaReverse extends Reverse {
 								fileString = fileString.replaceAll("<!--.*-->", "");
 								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",
 										" ");
-								System.out.println(f.getName()+" : "+fileString);
+								//help System.out.println(f.getName()+" : "+fileString);
 								Node document = parser.parse(fileString);
 								HtmlRenderer renderer = HtmlRenderer.builder().build();
 								org.jsoup.nodes.Document html = Jsoup.parse(renderer.render(document));
-								System.out.println(html);
+								//help System.out.println(html);
 								rasaBot.setNlu(html);
 								// rasaBot.setNlu(readFile(f));
 								// hasNLU = true;
 							} else {
+								//help System.out.println(info);
 								rasaBot.setStories(info);
 								// hasStories = true;
 							}
