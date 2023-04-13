@@ -82,7 +82,8 @@ public class Rasa2_0Reverse extends Reverse {
 								String fileString = info;
 								fileString = fileString.replaceAll("<!--.*-->", "").replaceAll("examples: \\|", "erase--")
 										.replaceAll("version: \"2.0\"", "erase--").replaceAll("nlu:", "erase--")
-										.replaceAll("- intent:","## intent:");
+										.replaceAll("- intent:","## intent:").replaceAll("- synonym:","## synonym:")
+										.replaceAll("- regex:", "## regex:").replaceAll("- lookup:", "## lookup:");
 								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
 										.replaceAll("\t", "");
 								//help System.out.println(f.getName()+" : "+fileString);
