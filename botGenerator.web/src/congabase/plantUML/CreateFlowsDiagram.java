@@ -47,6 +47,7 @@ public class CreateFlowsDiagram {
 	//private List<String> names = new ArrayList<>();
 	
 	public String createUML(Resource resource, List<UserInteraction> flows) {
+		System.out.println(resource.toString());
 		IResourceValidator validator = BotServlet.getInjector().getInstance(IResourceValidator.class);
 		List<Issue> list = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
 		if (!list.isEmpty()) {
@@ -67,6 +68,8 @@ public class CreateFlowsDiagram {
 			cad += printFlow(flow);
 		}
 		cad += END;
+		System.out.println("Creando UML");
+		System.out.println(cad);
 		return cad;
 	}
 
