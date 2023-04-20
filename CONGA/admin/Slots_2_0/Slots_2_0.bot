@@ -1,0 +1,170 @@
+Chatbot Slots_2_0 language : en
+
+intents :
+
+greet :
+	inputs in en {
+		hey ,
+		hello ,
+		^hi ,
+		"hello there" ,
+		"good morning" ,
+		"good evening" ,
+		moin ,
+		"hey there" ,
+		"let\'s go" ,
+		"hey dude" ,
+		goodmorning ,
+		goodevening ,
+		"good afternoon"
+}
+
+goodbye :
+	inputs in en {
+		"good afternoon" ,
+		cu ,
+		"good by" ,
+		"cee you later" ,
+		"good night" ,
+		bye ,
+		goodbye ,
+		"have a nice day" ,
+		"see you around" ,
+		"bye bye" ,
+		"see you later"
+}
+
+affirm :
+	inputs in en {
+		yes ,
+		y ,
+		indeed ,
+		"of course" ,
+		"that sounds good" ,
+		correct
+}
+
+deny :
+	inputs in en {
+		^no ,
+		n ,
+		never ,
+		"I don\'t think so" ,
+		"don\'t like that" ,
+		"no way" ,
+		"not really"
+}
+
+mood_great :
+	inputs in en {
+		perfect ,
+		great ,
+		amazing ,
+		"feeling like a king" ,
+		wonderful ,
+		"I am feeling very good" ,
+		"I am great" ,
+		"I am amazing" ,
+		"I am going to save the world" ,
+		"super stoked" ,
+		"extremely good" ,
+		"so so perfect" ,
+		"so good" ,
+		"so perfect"
+}
+
+mood_unhappy :
+	inputs in en {
+		"my day was horrible" ,
+		"I am sad" ,
+		"I don\'t feel very well" ,
+		"I am disappointed" ,
+		"super sad" ,
+		"I\'m so sad" ,
+		sad ,
+		"very sad" ,
+		unhappy ,
+		"not good" ,
+		"not very good" ,
+		"extremly sad" ,
+		"so saad" ,
+		"so sad" ,
+		"i am sad"
+}
+
+bot_challenge :
+	inputs in en {
+		"are you a bot?" ,
+		"are you a human?" ,
+		"am I talking to a bot?" ,
+		"am I talking to a human?"
+}
+
+tell_name :
+	inputs in en {
+		"i want to tell you my name" ,
+		"give name" ,
+		"ill give you my name" ,
+		"do you want to know my name?"
+}
+
+repeat_name :
+	inputs in en {
+		"what is my name" ,
+		"tell me my name" ,
+		"do you know my name" ,
+		"repeat my name"
+}
+
+give_name :
+	inputs in en {
+		vincent ,
+		rachael ,
+		emma ,
+		juste ,
+		jenny
+}
+
+actions :
+	Image response utter_cheer_up_img :
+		URL : "https://i.imgur.com/nGF1K8f.jpg"
+		caption : "Here is something to cheer you up:"
+	text response utter_happy_text :
+		inputs in en {
+			"Great, carry on!"
+	}
+	Empty response action_receive_name_empty { description: RASA_ACTION }
+	Empty response action_say_name_empty { description: RASA_ACTION }
+	text response utter_greet_text :
+		inputs in en {
+			"Hey! How are you?"
+	}
+	text response utter_did_that_help_text :
+		inputs in en {
+			"Did that help you?"
+	}
+	text response utter_iamabot_text :
+		inputs in en {
+			"I am a bot, powered by Rasa."
+	}
+	text response utter_ask_name_text :
+		inputs in en {
+			"What is your name?"
+	}
+	text response utter_goodbye_text :
+		inputs in en {
+			Bye
+	}
+
+flows :
+	- user greet => chatbot utter_greet_text {
+		=> user mood_great => chatbot utter_happy_text ;
+		=> user mood_unhappy => chatbot utter_cheer_up_img , utter_did_that_help_text {
+			=> user affirm => chatbot utter_happy_text ;
+			=> user deny => chatbot utter_goodbye_text ;
+		} ;
+		=> user tell_name => chatbot utter_ask_name_text {
+			=> user give_name => chatbot action_receive_name_empty { => user repeat_name => chatbot action_say_name_empty { => user tell_name => chatbot utter_ask_name_text { => user give_name => chatbot action_receive_name_empty { => user repeat_name => chatbot action_say_name_empty { => user goodbye => chatbot utter_goodbye_text ; } ; } ; } ; } ; } ;
+		} ;
+	} ;
+

@@ -1,0 +1,34 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+[*]-->utter_greet_text : greet
+utter_greet_text : utter_greet_text
+utter_greet_text-->utter_happy_text : mood_great
+utter_happy_text : utter_happy_text
+utter_happy_text-->[*]
+utter_greet_text-->utter_cheer_up_img : mood_unhappy
+utter_cheer_up_img : utter_cheer_up_img
+utter_cheer_up_img : utter_did_that_help_text
+utter_cheer_up_img-->utter_happy_text : affirm
+utter_cheer_up_img-->utter_goodbye_text : deny
+utter_goodbye_text : utter_goodbye_text
+utter_goodbye_text-->[*]
+utter_greet_text-->utter_ask_name_text : tell_name
+utter_ask_name_text : utter_ask_name_text
+utter_ask_name_text-->action_receive_name_empty : give_name
+action_receive_name_empty : action_receive_name_empty
+action_receive_name_empty-->action_say_name_empty : repeat_name
+action_say_name_empty : action_say_name_empty
+action_say_name_empty-->utter_ask_name_text1 : tell_name
+utter_ask_name_text1 : utter_ask_name_text
+utter_ask_name_text1-->action_receive_name_empty1 : give_name
+action_receive_name_empty1 : action_receive_name_empty
+action_receive_name_empty1-->action_say_name_empty1 : repeat_name
+action_say_name_empty1 : action_say_name_empty
+action_say_name_empty1-->utter_goodbye_text : goodbye
+
+@enduml
