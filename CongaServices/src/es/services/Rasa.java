@@ -24,6 +24,7 @@ import es.main.generators.Rasa2_0Generator;
 import es.main.generators.Rasa3_0Generator;
 import es.main.parser.RasaReverse;
 import es.main.parser.Rasa2_0Reverse;
+import es.main.parser.Rasa3_0Reverse;
 import es.main.validator.DialogflowValidator;
 import generator.Bot;
 import validation.problems.Problem;
@@ -99,6 +100,22 @@ public class Rasa {
 		String folderPath = context.getInitParameter("ServicePath");
 		ToolFiles tf = new ToolFiles(folderPath, file, fileName);
 		Rasa2_0Reverse parser = new Rasa2_0Reverse();
+		Bot bot = parser.getChatbot(tf.getFile()).getBot(); 
+		File f = tf.createResource(bot);
+		tf.destroy();
+		return Response.ok(f, MediaType.APPLICATION_OCTET_STREAM)
+				.header("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"").build();
+		
+	}
+	
+	@POST
+	@Path("/parser3_0")
+	@Consumes (MediaType.MULTIPART_FORM_DATA)
+	@Produces (MediaType.APPLICATION_OCTET_STREAM)
+	public Response parser3_0 (@Context ServletContext context, @FormDataParam("file") File file, @FormDataParam("name") String fileName) throws Exception {
+		String folderPath = context.getInitParameter("ServicePath");
+		ToolFiles tf = new ToolFiles(folderPath, file, fileName);
+		Rasa3_0Reverse parser = new Rasa3_0Reverse();
 		Bot bot = parser.getChatbot(tf.getFile()).getBot(); 
 		File f = tf.createResource(bot);
 		tf.destroy();
