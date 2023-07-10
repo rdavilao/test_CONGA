@@ -16,4 +16,3 @@ Require-Bundle: botGenerator.dsl.ui,
  org.eclipse.ui.workbench;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.xtext.botGenerator.ui.tests;x-internal=true
-Import-Package: org.junit.jupiter.api;version="5.9.2"

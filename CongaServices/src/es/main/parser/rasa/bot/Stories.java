@@ -24,6 +24,7 @@ public class Stories {
 		stories = stories.replace(" \n", "\n").replace("\r", "").replaceAll("\n# ", "\n## ");
 		String[] pathsStrings = stories.split("##");
 		for (String p : pathsStrings) {
+			System.out.println("VEEER:"+p);
 			if (!p.isBlank() && !p.isEmpty()) {
 				if (p.indexOf("*") != -1) {
 					String s = p.substring(p.indexOf("*"));
@@ -89,6 +90,12 @@ public class Stories {
 			interaction.setParameters(bot);
 		}
 
+	}
+
+	public void setRequiredParameters(Bot bot, Domain domain) {
+		for (UserInteraction interaction: this.paths) {
+			interaction.setRequiredParameters(bot, domain);
+		}
 	}
 
 }

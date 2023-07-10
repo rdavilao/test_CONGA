@@ -13,4 +13,3 @@ Require-Bundle: botGenerator.dsl,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.xtext.botGenerator.tests;x-internal=true
-Import-Package: org.junit.jupiter.api;version="5.9.2"

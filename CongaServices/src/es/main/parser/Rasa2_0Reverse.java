@@ -73,7 +73,7 @@ public class Rasa2_0Reverse extends Reverse {
 				} else {
 					File f = currentFile;
 					if (!f.getName().contains("test")) {
-						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml")) {
+						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml") || f.getName().equals("rules.yml")) {
 							String info = readFile(f);
 							info = info.replaceAll("##intent:", "## intent:").replaceAll("##synonym:", "## synonym:")
 									.replaceAll("##regex:", "## regex:").replaceAll("##lookup:", "## lookup:");
@@ -86,24 +86,36 @@ public class Rasa2_0Reverse extends Reverse {
 										.replaceAll("- regex:", "## regex:").replaceAll("- lookup:", "## lookup:");
 								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
 										.replaceAll("\t", "");
-								//help System.out.println(f.getName()+" : "+fileString);
 								Node document = parser.parse(fileString);
 								HtmlRenderer renderer = HtmlRenderer.builder().build();
-								org.jsoup.nodes.Document html = Jsoup.parse(renderer.render(document));
-								//help System.out.println(html);
-								rasaBot.setNlu(html);
+								org.jsoup.nodes.Document nlu = Jsoup.parse(renderer.render(document));
+								rasaBot.setNlu(nlu);
 								// rasaBot.setNlu(readFile(f));
 								// hasNLU = true;
-							} else {
+							} 
+							
+							if (info.contains("rules:")) {
+								String fileString = info;
+								fileString = fileString.replaceAll("<!--.*-->", "")
+										.replaceAll("version: \"2.0\"", "erase--").replaceAll("rules:", "erase--")
+										.replaceAll("- rule:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
+										.replaceAll("steps:", "erase--");
+								fileString = fileString.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
+										.replaceAll("\t", "");
+								rasaBot.setStories(fileString);
+								
+							}
+							
+							if (info.contains("stories:")) {
 								info = info.replaceAll("version: \"2.0\"", "erase--").replaceAll("stories:", "erase--")
 										.replaceAll("- story:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
 										.replaceAll("steps:", "erase--");
 								info = info.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
 										.replaceAll("\t", "");
-								//helpSystem.out.println(info);
 								rasaBot.setStories(info);
 								// hasStories = true;
 							}
+							
 
 						} else if (f.getName().equals("domain.yml")) {
 							rasaBot.setDomain(om.readValue(f, Domain.class));

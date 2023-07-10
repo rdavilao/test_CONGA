@@ -1,0 +1,110 @@
+@startuml
+
+skinparam class {
+}
+skinparam nodeSep 30 
+skinparam rankSep 30 
+hide empty members   
+state c <<choice>>
+[*]-->c
+c-->utter_greet_text : greet
+utter_greet_text : utter_greet_text
+utter_greet_text-->utter_info_text : ask_features
+utter_info_text : utter_info_text
+utter_info_text-->action_search_recipes_empty : search_recipes
+action_search_recipes_empty : action_search_recipes_empty
+action_search_recipes_empty-->[*]
+utter_greet_text-->action_search_recipes_empty1 : search_recipes
+action_search_recipes_empty1 : action_search_recipes_empty
+action_search_recipes_empty1-->DefaultEmptyAction : ask_alternative_recipe
+DefaultEmptyAction : DefaultEmptyAction
+DefaultEmptyAction-->action_search_alternative_recipe_empty : deny
+action_search_alternative_recipe_empty : action_search_alternative_recipe_empty
+action_search_alternative_recipe_empty-->[*]
+c-->DefaultEmptyAction1 : ask_ingredients_list
+DefaultEmptyAction1 : DefaultEmptyAction
+DefaultEmptyAction1-->action_list_ingredients_empty : affirm
+action_list_ingredients_empty : action_list_ingredients_empty
+action_list_ingredients_empty : utter_ask_start_cooking_text
+action_list_ingredients_empty-->utter_ask_more_info_text : deny
+utter_ask_more_info_text : utter_ask_more_info_text
+utter_ask_more_info_text-->action_search_ingredients_substitutes_empty : ask_ingredient_substitute
+action_search_ingredients_substitutes_empty : action_search_ingredients_substitutes_empty
+action_search_ingredients_substitutes_empty-->DefaultEmptyAction2 : start_cooking
+DefaultEmptyAction2 : DefaultEmptyAction
+DefaultEmptyAction2-->[*]
+c-->action_list_ingredients_empty1 : affirm
+action_list_ingredients_empty1 : action_list_ingredients_empty
+action_list_ingredients_empty1 : utter_ask_start_cooking_text
+action_list_ingredients_empty1 : list_steps_loop_empty
+action_list_ingredients_empty1-->utter_ask_more_info_text1 : deny
+utter_ask_more_info_text1 : utter_ask_more_info_text
+utter_ask_more_info_text1-->action_tell_expected_time_empty : affirm
+action_tell_expected_time_empty : action_tell_expected_time_empty
+action_tell_expected_time_empty-->action_update_people_count_empty : tell_people_count
+action_update_people_count_empty : action_update_people_count_empty
+action_update_people_count_empty : action_list_ingredients_empty
+action_update_people_count_empty : utter_ask_start_cooking_text
+action_update_people_count_empty-->DefaultEmptyAction2 : affirm
+action_list_ingredients_empty1-->action_search_ingredients_substitutes_empty1 : ask_ingredient_substitute
+action_search_ingredients_substitutes_empty1 : action_search_ingredients_substitutes_empty
+action_search_ingredients_substitutes_empty1 : list_steps_loop_empty
+action_search_ingredients_substitutes_empty1-->list_steps_loop_empty : next
+list_steps_loop_empty : list_steps_loop_empty
+list_steps_loop_empty-->action_tell_ingredient_amount_empty : ask_ingredient_amount
+action_tell_ingredient_amount_empty : action_tell_ingredient_amount_empty
+action_tell_ingredient_amount_empty : list_steps_loop_empty
+action_tell_ingredient_amount_empty-->list_steps_loop_empty1 : next
+list_steps_loop_empty1 : list_steps_loop_empty
+list_steps_loop_empty1-->action_list_ingredients_empty2 : ask_ingredients_list
+action_list_ingredients_empty2 : action_list_ingredients_empty
+action_list_ingredients_empty2 : list_steps_loop_empty
+action_list_ingredients_empty2-->action_reset_list_steps_loop_empty : stop_cooking
+action_reset_list_steps_loop_empty : action_reset_list_steps_loop_empty
+action_reset_list_steps_loop_empty : utter_list_steps_stop_text
+action_reset_list_steps_loop_empty : utter_anything_else_text
+action_reset_list_steps_loop_empty-->[*]
+c-->action_tell_expected_time_empty1 : ask_expected_time
+action_tell_expected_time_empty1 : action_tell_expected_time_empty
+action_tell_expected_time_empty1 : list_steps_loop_empty
+action_tell_expected_time_empty1-->list_steps_loop_empty2 : next
+list_steps_loop_empty2 : list_steps_loop_empty
+list_steps_loop_empty2-->action_set_timer_empty : set_timer
+action_set_timer_empty : action_set_timer_empty
+action_set_timer_empty : list_steps_loop_empty
+action_set_timer_empty-->list_steps_loop_empty3 : next
+list_steps_loop_empty3 : list_steps_loop_empty
+list_steps_loop_empty3-->action_reset_list_steps_loop_empty1 : search_recipes
+action_reset_list_steps_loop_empty1 : action_reset_list_steps_loop_empty
+action_reset_list_steps_loop_empty1 : utter_list_steps_stop_text
+action_reset_list_steps_loop_empty1 : action_search_recipes_empty
+action_reset_list_steps_loop_empty1-->[*]
+c-->action_search_ingredients_substitutes_empty2 : ask_ingredient_substitute
+action_search_ingredients_substitutes_empty2 : action_search_ingredients_substitutes_empty
+action_search_ingredients_substitutes_empty2-->[*]
+c-->action_tell_ingredient_amount_empty1 : ask_ingredient_amount
+action_tell_ingredient_amount_empty1 : action_tell_ingredient_amount_empty
+action_tell_ingredient_amount_empty1-->[*]
+c-->DefaultEmptyAction3 : tell_people_count
+DefaultEmptyAction3 : DefaultEmptyAction
+DefaultEmptyAction3-->action_update_people_count_empty1 : tell_people_count_one
+action_update_people_count_empty1 : action_update_people_count_empty
+action_update_people_count_empty1 : action_list_ingredients_empty
+action_update_people_count_empty1 : utter_ask_start_cooking_text
+action_update_people_count_empty1-->DefaultEmptyAction2 : affirm
+c-->utter_ask_start_cooking_text : deny
+utter_ask_start_cooking_text : utter_ask_start_cooking_text
+utter_ask_start_cooking_text-->DefaultEmptyAction2 : affirm
+c-->DefaultEmptyAction2 : start_cooking
+c-->list_steps_loop_empty4 : next
+list_steps_loop_empty4 : list_steps_loop_empty
+list_steps_loop_empty4-->list_steps_loop_empty5 : next
+list_steps_loop_empty5 : list_steps_loop_empty
+list_steps_loop_empty5-->list_steps_loop_empty6 : next
+list_steps_loop_empty6 : list_steps_loop_empty
+list_steps_loop_empty6 : action_reset_list_steps_loop_empty
+list_steps_loop_empty6 : utter_anything_else_text
+list_steps_loop_empty6-->[*]
+c-->action_reset_list_steps_loop_empty : stop_cooking
+
+@enduml

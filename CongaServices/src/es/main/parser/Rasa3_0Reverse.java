@@ -73,7 +73,7 @@ public class Rasa3_0Reverse extends Reverse {
 				} else {
 					File f = currentFile;
 					if (!f.getName().contains("test")) {
-						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml")) {
+						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml") || f.getName().equals("rules.yml")) {
 							String info = readFile(f);
 							info = info.replaceAll("##intent:", "## intent:").replaceAll("##synonym:", "## synonym:")
 									.replaceAll("##regex:", "## regex:").replaceAll("##lookup:", "## lookup:");
@@ -94,7 +94,20 @@ public class Rasa3_0Reverse extends Reverse {
 								rasaBot.setNlu(html);
 								// rasaBot.setNlu(readFile(f));
 								// hasNLU = true;
-							} else {
+							}
+							if (info.contains("rules:")) {
+								String fileString = info;
+								fileString = fileString.replaceAll("<!--.*-->", "")
+										.replaceAll("version: \"3.0\"", "erase--").replaceAll("rules:", "erase--")
+										.replaceAll("- rule:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
+										.replaceAll("steps:", "erase--");
+								fileString = fileString.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
+										.replaceAll("\t", "");
+								rasaBot.setStories(fileString);	
+								
+							}
+							
+							if (info.contains("stories:")){
 								info = info.replaceAll("version: \"3.0\"", "erase--").replaceAll("stories:", "erase--")
 										.replaceAll("- story:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
 										.replaceAll("steps:", "erase--");

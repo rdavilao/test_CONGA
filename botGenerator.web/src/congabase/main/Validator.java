@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -138,7 +140,8 @@ public class Validator {
 	public void printIssues(String name, List<Issue> issues) throws IOException {
 		if (issues.isEmpty()) {
 			this.outputWriter.write(name+"\tValidation successful\n");
-		}
+		}	
+		
 		for (Issue i: issues) {
 			this.outputWriter.write(name+"\t"+i.getSeverity()+"\t"+i.getLineNumber()+"\t"+i.getMessage()+"\n");
 		}

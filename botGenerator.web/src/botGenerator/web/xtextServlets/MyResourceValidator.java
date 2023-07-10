@@ -1,6 +1,8 @@
 package botGenerator.web.xtextServlets;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.servlet.ServletContext;
 
@@ -27,7 +29,7 @@ import validation.problems.Problem.Severity;
 import validation.problems.ProblemSet;
 
 /**
- * @author Sara Pérez Soler
+ * @author Sara PÃ©rez Soler
  * 
  *         Allows services calls to validate the resource and transform the
  *         Problem object into a Issue object
@@ -66,7 +68,24 @@ public class MyResourceValidator extends ResourceValidatorImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		Collections.sort(issues, new Comparator<Issue>() {
+			public int compare(Issue i1, Issue i2) {
+				String code1 = i1.getMessage().split("\t")[0];
+				String code2 = i2.getMessage().split("\t")[0];
+				
+				int num1 = Integer.parseInt(code1.substring(1));
+				int num2 = Integer.parseInt(code2.substring(1));
+				if ( num1 < num2) {
+					return -1;
+				}else if (num1 > num2) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		
 		return issues;
 	}
 

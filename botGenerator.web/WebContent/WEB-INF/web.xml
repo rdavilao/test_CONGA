@@ -15,6 +15,6 @@
 
 	<context-param>
 		<param-name>project.files</param-name>
-		<param-value>/Users/User/Desktop/PROYECTOS/GITHUB/CONGA/CONGA</param-value>
+		<param-value>/PERSONAL/TRABAJO/MISO/PRUEBA/test_CONGA/CONGA</param-value>
 	</context-param>
 </web-app>

@@ -1,4 +1,4 @@
-Chatbot CineBot language : en
+Chatbot "Cinebot-complete" language : en
 
 intents :
 
@@ -61,8 +61,8 @@ intents :
 			"Hey y\'all" ,
 			"Hey yall" ,
 			Whazzup ,
-			"Whatâ€™s shaking" ,
-			"Whatâ€™s shakin" ,
+			"What’s shaking" ,
+			"What’s shakin" ,
 			"Good to see you" ,
 			"Long time no see" ,
 			"what\'s crack-a-lackin\'?" ,
@@ -76,7 +76,7 @@ intents :
 			Aloha ,
 			Hallo ,
 			"Hey, hiiii" ,
-			"Whatâ€™s new?" ,
+			"What’s new?" ,
 			Wagwan ,
 			"How\'s life?" ,
 			"Hey friend!" ,
@@ -92,10 +92,10 @@ intents :
 			"Been a long time" ,
 			hai ,
 			hola ,
-			"Whatâ€™s going on?" ,
-			"How ya doinâ€™?" ,
+			"What’s going on?" ,
+			"How ya doin’?" ,
 			"How was your day?" ,
-			"Howâ€™s everything?" ,
+			"How’s everything?" ,
 			"Well, who do we have here?" ,
 			"Howdy-doody!" ,
 			"You all right?" ,
@@ -179,10 +179,10 @@ intents :
 			"Guid mornin" ,
 			"How are ye" ,
 			Welcome ,
-			"Whatâ€™s the Word?" ,
+			"What’s the Word?" ,
 			"Good Afternoon, Sir. How Are You Today?" ,
 			"Good Day to You" ,
-			"Whatâ€™s the craic?" ,
+			"What’s the craic?" ,
 			Ahoy ,
 			"Hello Cinebot" ,
 			"How\'s your day going" ,
@@ -265,7 +265,7 @@ intents :
 			"See ya later, alligator!" ,
 			"Fare thee well" ,
 			"Have a good one!" ,
-			"Iâ€™ve got to get going." ,
+			"I’ve got to get going." ,
 			"Peace out!" ,
 			"thanks for your help!" ,
 			"thanks Cinebot" ,
@@ -293,7 +293,7 @@ intents :
 			"Catch you later" ,
 			"catch u later" ,
 			"I\'m gonna dip" ,
-			"See ya, wouldnâ€™t wanna be ya!" ,
+			"See ya, wouldn’t wanna be ya!" ,
 			"I gotta bounce." ,
 			"Bon Voyage" ,
 			"Well, I\'m off!" ,
@@ -303,9 +303,9 @@ intents :
 			"Adios, amigos." ,
 			"goodbye, friend!" ,
 			"So long, suckers!" ,
-			"Iâ€™ve got to get going" ,
+			"I’ve got to get going" ,
 			"I must be going" ,
-			"Iâ€™m off" ,
+			"I’m off" ,
 			"I gotta take off" ,
 			"I gotta hit the road" ,
 			"I gotta head out" ,
@@ -985,10 +985,10 @@ intents :
 			"I want to watch a movie" ,
 			"get me a ticket" ,
 			"one ticket please" ,
-			"Iâ€™m here to buy a ticket" ,
+			"I’m here to buy a ticket" ,
 			"Could I get a ticket please" ,
-			"Iâ€™d like some tickets" ,
-			"thank you, Iâ€™d like a ticket please" ,
+			"I’d like some tickets" ,
+			"thank you, I’d like a ticket please" ,
 			"me and my family would like a ticket" ,
 			"I want a ticket to see a movie" ,
 			"Can I buy tickets to watch movies here" ,
@@ -1109,7 +1109,7 @@ intents :
 
 	collect_tickets :
 		inputs in en {
-			"Can I collect tickets here" ,
+		    "Can I collect tickets here" ,
 			"I am here to collect tickets" ,
 			"I\'d like to collect my tickets" ,
 			"I\'m wondering if I can collect tickets here" ,
@@ -1129,16 +1129,7 @@ intents :
 			"Where can I collect tickets?" ,
 			"Can you tell me where I can collect tickets?" ,
 			"would u be able to tell me where i can collect tickets?" ,
-			"Can i pick up tickets here?" ,
-			"Is this where i pick up tickets" ,
-			"I want to pick up some tickets" ,
-			"I wish to collect tickets" ,
-			"do u offer ticket pick up" ,
-			"do u know if I can collect tickets here" ,
-			"can we pick up our tickets here?" ,
-			"pick up tickets" ,
-			"I\'m here to pick up tickts" ,
-			"is it possible to collect tickets" ,
+			
 			"do u do ticket collection?" ,
 			"Can you provide info on where to collect tickets" ,
 			"is this the ticket collection point?" ,
@@ -1171,6 +1162,7 @@ intents :
 			"tell me how to collect tickets" ,
 			"infromation on how to collect tickets" ,
 			"let me collect tickets" ,
+			"I need to collect my tickets" ,
 			"I\'m intending to pick-up tickets" ,
 			"I need help collecting tickets" ,
 			"Do think I can pick up tickets here" ,
@@ -1192,7 +1184,6 @@ intents :
 			print ,
 			"tickets printed" ,
 			"let me collect tickets" ,
-			"I need to collect my tickets" ,
 			"I need you to help me collect my tickets" ,
 			"Can I collect my tickets" ,
 			"I wish to have my tickets printed" ,
@@ -1661,7 +1652,7 @@ intents :
 			"which person directed " ( "Shang-Chi And The Legend Of The Ten Rings" ) [ movie_name ] ,
 			"What can you tell me about " ( "The Mauritanian" ) [ movie_name ] ,
 			"Is there anything you can tell me about " ( "The Martian" ) [ movie_name ] "?" ,
-			"Is there information about " ( "Zack Snyderâ€™s Justice League" ) [ movie_name ] " available?" ,
+			"Is there information about " ( "Zack Snyder’s Justice League" ) [ movie_name ] " available?" ,
 			"any info about " ( "Spider-Man: No Way Home" ) [ movie_name ] "?" ,
 			"can you tell me anything about " ( Morbius ) [ movie_name ] ,
 			"Give me information about " ( "The Contractor" ) [ movie_name ] ,
@@ -3153,6 +3144,10 @@ intents :
 		parameters :
 			booking_reference : entity booking_reference ;
 
+	start :
+
+	nlu_fallback Fallback :
+
 entities :
 	Regex entity card_num :
 		inputs in en {
@@ -3172,121 +3167,121 @@ entities :
 	}
 
 actions :
-	Text response utter_further_help_text :
+	text response utter_further_help_text :
 		inputs in en {
 			"Is there anything else I can help you with?"
 	}
-	Text response utter_ask_payment_form_cvv_text :
+	text response utter_ask_payment_form_cvv_text :
 		inputs in en {
 			"What is the card security code? (3 digit number on back of card)"
 	}
-	Text response utter_ask_payment_form_sort_code_text :
+	text response utter_ask_payment_form_sort_code_text :
 		inputs in en {
 			"What is your sort code? (format XX-XX-XX)"
 	}
-	Text response utter_want_times_text :
+	text response utter_want_times_text :
 		inputs in en {
 			"Do you want times for a movie?"
 	}
-	Text response utter_greet_text :
+	text response utter_greet_text :
 		inputs in en {
 			"Hey! I\'m Cinebot! How can I help you today?" ,
 			"Hello! I\'m Cinebot! I What can I do for you?" ,
 			"Hey There! I\'m Cinebot! Is there anything I can help you with?"
 	}
-	Text response utter_collection_confirmation_text :
+	text response utter_collection_confirmation_text :
 		inputs in en {
 			"To confirm this is your booking reference: " booking_reference
 	}
-	Text response utter_what_do_text :
+	text response utter_what_do_text :
 		inputs in en {
 			"What are you doing?"
 	}
 	Empty response action_display_schedule_empty { description: RASA_ACTION }
 	Empty response validate_movie_schedule_form_empty { description: RASA_ACTION }
-	Text response utter_inform_payment_text :
+	text response utter_inform_payment_text :
 		inputs in en {
 			"I can only take card at the moment"
 	}
 	Empty response action_print_ticket_empty { description: RASA_ACTION }
 	Empty response action_utter_movie_schedule_empty { description: RASA_ACTION }
-	Text response utter_resubmit_text :
+	text response utter_resubmit_text :
 		inputs in en {
 			"Sorry about that, can you please re-enter the details."
 	}
-	Text response utter_want_printed_text :
+	text response utter_want_printed_text :
 		inputs in en {
 			"Do you want your tickets printed now?"
 	}
-	Text response utter_out_of_scope_text :
+	text response utter_out_of_scope_text :
 		inputs in en {
 			"Sorry, I am unable to handle that request."
 	}
-	Text response utter_how_help_text :
+	text response utter_how_help_text :
 		inputs in en {
 			"How can I help you?"
 	}
 	Empty response action_utter_movies_empty { description: RASA_ACTION }
 	Empty response action_utter_total_price_empty { description: RASA_ACTION }
-	Text response utter_please_rephrase_text :
+	text response utter_please_rephrase_text :
 		inputs in en {
 			"I\'m sorry, I didn\'t quite understand that. Could you rephrase?"
 	}
-	Text response utter_ask_movie_schedule_form_movie_name_text :
+	text response utter_ask_movie_schedule_form_movie_name_text :
 		inputs in en {
 			"What movie would you like times for?"
 	}
 	Empty response action_clear_slots_empty { description: RASA_ACTION }
-	Text response utter_ask_booking_form_movie_name_text :
+	text response utter_ask_booking_form_movie_name_text :
 		inputs in en {
 			"What movie would you like to see? (please remember captal letters and avoid special characters)"
 	}
-	Text response utter_ask_collection_form_booking_reference_text :
+	text response utter_ask_collection_form_booking_reference_text :
 		inputs in en {
 			"What is your booking reference?"
 	}
-	Text response utter_printing_tickets_text :
+	text response utter_printing_tickets_text :
 		inputs in en {
 			"Printing your tickets now."
 	}
-	Text response utter_ask_movie_schedule_form_start_time_text :
+	text response utter_ask_movie_schedule_form_start_time_text :
 		inputs in en {
 			"What day do you want times for?"
 	}
-	Text response utter_ask_booking_form_start_time_text :
+	text response utter_ask_booking_form_start_time_text :
 		inputs in en {
 			"What time and day would you like to see the movie?"
 	}
-	Text response utter_inform_prices_text :
+	text response utter_inform_prices_text :
 		inputs in en {
 			"For IMAX screens it is £9.50, for 3D showings it is £7.50 and for 2D showings it is £5.50 "
 	}
-	Text response utter_ask_payment_form_card_num_text :
+	text response utter_ask_payment_form_card_num_text :
 		inputs in en {
 			"What is your card number? (16 digit number) (Example payment)"
 	}
 	Empty response action_display_booking_empty { description: RASA_ACTION }
 	Empty response action_query_movie_empty { description: RASA_ACTION }
-	Text response utter_goodbye_text :
+	text response utter_goodbye_text :
 		inputs in en {
 			"Okay, Have a great day!"
 	}
-	Text response utter_ask_display_form_booking_reference_text :
+	text response utter_ask_display_form_booking_reference_text :
 		inputs in en {
 			"What is your booking reference?"
 	}
-	Text response utter_continue_booking_text :
+	text response utter_continue_booking_text :
 		inputs in en {
 			"Would you like to continue booking?"
 	}
-	Text response utter_continue_collecting_text :
+	text response utter_continue_collecting_text :
 		inputs in en {
 			"Would you like to continue ticket colleciton?"
 	}
 	Empty response action_input_booking_empty { description: RASA_ACTION }
 	Empty response validate_payment_form_empty { description: RASA_ACTION }
 	Empty response action_input_collection_empty { description: RASA_ACTION }
-	Text response utter_ask_booking_form_num_tickets_text :
+	text response utter_ask_booking_form_num_tickets_text :
 		inputs in en {
 			"Can you confirm the number of tickets you\'d like?"
 	}
@@ -3294,7 +3289,7 @@ actions :
 	Empty response validate_booking_form_empty { description: RASA_ACTION }
 	Empty response action_utter_confirmation_empty { description: RASA_ACTION }
 	Empty response validate_collection_form_empty { description: RASA_ACTION }
-	Text response utter_cancel_text :
+	text response utter_cancel_text :
 		inputs in en {
 			"Cancelling transaction"
 	}
@@ -3306,6 +3301,19 @@ actions :
 	Empty response DefaultEmptyAction
 
 flows :
+	- user start => chatbot utter_greet_text ;
+	- user greet => chatbot utter_greet_text ;
+	- user goodbye => chatbot utter_goodbye_text , DefaultEmptyAction {
+		=> user deny => chatbot utter_goodbye_text ;
+	} ;
+	- user inquire_prices => chatbot utter_inform_prices_text ;
+	- user inquire_payment => chatbot utter_inform_payment_text ;
+	- user out_of_scope => chatbot utter_out_of_scope_text ;
+	- user nlu_fallback => chatbot utter_please_rephrase_text ;
+	- user inform_details => chatbot utter_please_rephrase_text ;
+	- user set_movie_time => chatbot utter_please_rephrase_text ;
+	- user no_tickets => chatbot utter_please_rephrase_text ;
+	- user inform_movie => chatbot action_clear_slots_empty , utter_please_rephrase_text ;
 	- user affirm => chatbot action_print_ticket_empty , utter_further_help_text , utter_how_help_text , action_input_booking_empty , action_clear_slots_empty , booking_form_empty , action_utter_confirmation_empty ;
 	- user deny => chatbot action_clear_slots_empty , utter_further_help_text , utter_resubmit_text , booking_form_empty , action_utter_confirmation_empty ;
 	- user inquire_movie_schedule => chatbot action_utter_movies_empty , utter_want_times_text {
@@ -3316,9 +3324,6 @@ flows :
 	} ;
 	- user inquire_movie_times => chatbot movie_schedule_form_empty , action_utter_movie_schedule_empty , action_clear_slots_empty , utter_further_help_text {
 		=> user stop => chatbot action_clear_slots_empty , utter_further_help_text ;
-	} ;
-	- user goodbye => chatbot DefaultEmptyAction {
-		=> user deny => chatbot utter_goodbye_text ;
 	} ;
 	- user display_booking => chatbot display_form_empty , action_display_booking_empty , utter_further_help_text {
 		=> user stop => chatbot action_clear_slots_empty , utter_further_help_text ;

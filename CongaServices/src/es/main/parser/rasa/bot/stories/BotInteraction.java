@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.main.parser.rasa.bot.Domain;
+import es.main.parser.rasa.bot.domain.Form;
 import generator.Action;
 import generator.Bot;
 import generator.ButtonAction;
@@ -180,6 +181,23 @@ public class BotInteraction {
 		}else {
 			return "chatbot "+actions+";";
 		}
+	}
+
+	public List<Form> getForms(Domain domain) {
+		List<Form> forms = new ArrayList<>();
+		for (String action: actions) {
+			if (domain.isForm(action)) {
+				forms.add(domain.getForm(action));
+			}
+		}
+		return forms;
+	}
+
+	public void setRequiredParameters(Bot bot, Domain domain) {
+		if (next != null) {
+			next.setRequiredParameters(bot, domain);
+		}
+		
 	}
 
 }
