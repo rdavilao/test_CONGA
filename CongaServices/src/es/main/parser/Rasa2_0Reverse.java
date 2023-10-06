@@ -23,8 +23,8 @@ import org.jsoup.Jsoup;
 
 public class Rasa2_0Reverse extends Reverse {
 	private List<String> fileIgnore = new ArrayList<>();
-	private static final String[] ignore = { "README.md", "readme.md", "Readme.md", "test_stories.yml", "test_stories.md", "test",
-			"tests" };
+	private static final String[] ignore = { "README.md", "readme.md", "Readme.md", "test_stories.yml",
+			"test_stories.md", "test", "tests" };
 
 	public Rasa2_0Reverse() {
 		for (String s : ignore) {
@@ -73,49 +73,52 @@ public class Rasa2_0Reverse extends Reverse {
 				} else {
 					File f = currentFile;
 					if (!f.getName().contains("test")) {
-						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml") || f.getName().equals("rules.yml")) {
+						if (f.getName().equals("nlu.yml") || f.getName().equals("stories.yml")
+								|| f.getName().equals("rules.yml")) {
 							String info = readFile(f);
 							info = info.replaceAll("##intent:", "## intent:").replaceAll("##synonym:", "## synonym:")
-									.replaceAll("##regex:", "## regex:").replaceAll("##lookup:", "## lookup:");
+									.replaceAll("##regex:", "## regex:").replaceAll("##lookup:", "## lookup:")
+									.replaceAll("(?m)^-\\s*$", "");
 
 							if (info.contains("nlu:")) {
 								String fileString = info;
-								fileString = fileString.replaceAll("<!--.*-->", "").replaceAll("examples: \\|", "erase--")
+								fileString = fileString.replaceAll("<!--.*-->", "")
+										.replaceAll("examples: \\|", "erase--")
 										.replaceAll("version: \"2.0\"", "erase--").replaceAll("nlu:", "erase--")
-										.replaceAll("- intent:","## intent:").replaceAll("- synonym:","## synonym:")
+										.replaceAll("- intent:", "## intent:").replaceAll("- synonym:", "## synonym:")
 										.replaceAll("- regex:", "## regex:").replaceAll("- lookup:", "## lookup:");
-								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
-										.replaceAll("\t", "");
+								fileString = fileString.replaceAll("\r", "").replaceAll("\n-", "\n- ")
+										.replaceAll("  ", " ").replaceAll("erase--\n", "").replaceAll("\t", "");
 								Node document = parser.parse(fileString);
 								HtmlRenderer renderer = HtmlRenderer.builder().build();
 								org.jsoup.nodes.Document nlu = Jsoup.parse(renderer.render(document));
 								rasaBot.setNlu(nlu);
 								// rasaBot.setNlu(readFile(f));
 								// hasNLU = true;
-							} 
-							
+							}
+
 							if (info.contains("rules:")) {
 								String fileString = info;
 								fileString = fileString.replaceAll("<!--.*-->", "")
 										.replaceAll("version: \"2.0\"", "erase--").replaceAll("rules:", "erase--")
-										.replaceAll("- rule:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
-										.replaceAll("steps:", "erase--");
-								fileString = fileString.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
-										.replaceAll("\t", "");
+										.replaceAll("- rule:", "##").replaceAll("- intent:", "*")
+										.replaceAll("- action:", "-").replaceAll("steps:", "erase--");
+								fileString = fileString.replaceAll("\n-", "\n- ").replaceAll("  ", " ")
+										.replaceAll("erase--\n", "").replaceAll("\t", "");
+								fileString = fileString.replaceAll("erase-- \n", "").replaceAll("erase--", "");
 								rasaBot.setStories(fileString);
-								
 							}
-							
+
 							if (info.contains("stories:")) {
 								info = info.replaceAll("version: \"2.0\"", "erase--").replaceAll("stories:", "erase--")
-										.replaceAll("- story:","##").replaceAll("- intent:", "*").replaceAll("- action:", "-")
+										.replaceAll("- story:", "##").replaceAll("- story :", "##")
+										.replaceAll("- intent:", "*").replaceAll("- action:", "-")
 										.replaceAll("steps:", "erase--");
-								info = info.replaceAll(agentName, info).replaceAll("\r", "").replaceAll("\n-", "\n- ").replaceAll("  ",	" ").replaceAll("erase--\n", "")
+								info = info.replaceAll("\n-", "\n- ").replaceAll("  ", " ").replaceAll("erase--\n", "")
 										.replaceAll("\t", "");
+								info = info.replaceAll("erase-- \n", "").replaceAll("erase--", "");
 								rasaBot.setStories(info);
-								// hasStories = true;
 							}
-							
 
 						} else if (f.getName().equals("domain.yml")) {
 							rasaBot.setDomain(om.readValue(f, Domain.class));

@@ -158,6 +158,7 @@ public class Nlu {
 			}
 		}
 	}
+	
 
 	public void saveBotIntents(Bot bot) {
 		for (Intent intent : this.intents) {

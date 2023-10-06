@@ -110,7 +110,7 @@ public class UserInteraction {
 		if (next != null) {
 			List<Form> forms = next.getForms(domain);
 			for (Form f : forms) {
-				for (String required : f.getRequired_slots()) {
+			for (String required : f.getRequired_slots()) {
 					Parameter param = bot.getIntent(this.intent).getParameter(required);
 					if (param == null) {
 						param = GeneratorFactory.eINSTANCE.createParameter();

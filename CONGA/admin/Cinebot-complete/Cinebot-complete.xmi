@@ -3409,36 +3409,6 @@
         <tokens xsi:type="generator:Literal" text="would u be able to tell me where i can collect tickets?"/>
       </inputs>
       <inputs>
-        <tokens xsi:type="generator:Literal" text="Can i pick up tickets here?"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="Is this where i pick up tickets"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="I want to pick up some tickets"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="I wish to collect tickets"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="do u offer ticket pick up"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="do u know if I can collect tickets here"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="can we pick up our tickets here?"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="pick up tickets"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="I'm here to pick up tickts"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="is it possible to collect tickets"/>
-      </inputs>
-      <inputs>
         <tokens xsi:type="generator:Literal" text="do u do ticket collection?"/>
       </inputs>
       <inputs>
@@ -3535,6 +3505,9 @@
         <tokens xsi:type="generator:Literal" text="let me collect tickets"/>
       </inputs>
       <inputs>
+        <tokens xsi:type="generator:Literal" text="I need to collect my tickets"/>
+      </inputs>
+      <inputs>
         <tokens xsi:type="generator:Literal" text="I'm intending to pick-up tickets"/>
       </inputs>
       <inputs>
@@ -3596,9 +3569,6 @@
       </inputs>
       <inputs>
         <tokens xsi:type="generator:Literal" text="let me collect tickets"/>
-      </inputs>
-      <inputs>
-        <tokens xsi:type="generator:Literal" text="I need to collect my tickets"/>
       </inputs>
       <inputs>
         <tokens xsi:type="generator:Literal" text="I need you to help me collect my tickets"/>

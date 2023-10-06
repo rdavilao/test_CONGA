@@ -29,12 +29,11 @@ public class Domain {
 
 	private int num_actions = 0;
 	private int num_forms = 0;
-	
-	public static final String TEXT_SUFIX= "_text";
-	public static final String IMG_SUFIX= "_img";
-	public static final String BUTTON_SUFIX= "_btn";
-	public static final String EMPTY_SUFIX= "_empty";
-	
+
+	public static final String TEXT_SUFIX = "_text";
+	public static final String IMG_SUFIX = "_img";
+	public static final String BUTTON_SUFIX = "_btn";
+	public static final String EMPTY_SUFIX = "_empty";
 
 	public List<Object> getIntents() {
 		return intents;
@@ -70,15 +69,13 @@ public class Domain {
 	 * this.forms = forms; }
 	 */
 
-	/*public void setForms(Object forms) {
-		if (forms instanceof List<?>) {
-			this.forms = (List<String>) forms;
-		} else if (forms instanceof Map<?, ?>) {
-			this.forms = new ArrayList<>();
-			this.forms.addAll(((Map<String, Object>) forms).keySet());
-		}
-	}*/
-	
+	/*
+	 * public void setForms(Object forms) { if (forms instanceof List<?>) {
+	 * this.forms = (List<String>) forms; } else if (forms instanceof Map<?, ?>) {
+	 * this.forms = new ArrayList<>(); this.forms.addAll(((Map<String, Object>)
+	 * forms).keySet()); } }
+	 */
+
 	public void setForm(Map<String, Form> form) {
 		this.forms = form;
 	}
@@ -181,17 +178,19 @@ public class Domain {
 //				empty.setDescription("RASA_ACTION");
 				bot.getActions().add(empty);
 				num_actions++;
-				
+
 			}
 		}
-
-		for (String formName : forms.keySet()) {
-			String name = formName + EMPTY_SUFIX;
-			Empty empty = GeneratorFactory.eINSTANCE.createEmpty();
-			empty.setName(name);
-//			empty.setDescription("RASA_FORM");
-			bot.getActions().add(empty);
-			num_forms++;
+		
+		if (forms != null) {
+			for (String formName : forms.keySet()) {
+				String name = formName + EMPTY_SUFIX;
+				Empty empty = GeneratorFactory.eINSTANCE.createEmpty();
+				empty.setName(name);
+//				empty.setDescription("RASA_FORM");
+				bot.getActions().add(empty);
+				num_forms++;
+			}
 		}
 	}
 
